@@ -1,0 +1,96 @@
+@prefix : <http://localhost:8080/cottageBooking/onto/cottageOntology.owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+#################################################################
+# Individuals (5 cottages + booking periods)
+#################################################################
+
+### Cottage 1
+:Cottage1 rdf:type :Cottage ;
+    :hasAddress "Lakeview 12, Riga" ;
+    :hasImage "https://example.com/images/cottage1.jpg" ;
+    :hasCapacity 6 ;
+    :hasBedrooms 3 ;
+    :hasDistanceToLake "120.0"^^xsd:float ;
+    :hasNearestCity "Riga" ;
+    :hasDistanceToCity "5000.0"^^xsd:float ;
+    :hasAvailabilityPeriod :Period1_1, :Period1_2 .
+
+:Period1_1 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-07-01"^^xsd:date ;
+    :hasEndDate "2025-07-10"^^xsd:date ;
+    :isFree true .
+
+:Period1_2 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-08-05"^^xsd:date ;
+    :hasEndDate "2025-08-12"^^xsd:date ;
+    :isFree false .
+
+
+### Cottage 2
+:Cottage2 rdf:type :Cottage ;
+    :hasAddress "Forest Road 45, Sigulda" ;
+    :hasImage "https://example.com/images/cottage2.jpg" ;
+    :hasCapacity 4 ;
+    :hasBedrooms 2 ;
+    :hasDistanceToLake "300.5"^^xsd:float ;
+    :hasNearestCity "Sigulda" ;
+    :hasDistanceToCity "1500.0"^^xsd:float ;
+    :hasAvailabilityPeriod :Period2_1 .
+
+:Period2_1 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-07-10"^^xsd:date ;
+    :hasEndDate "2025-07-15"^^xsd:date ;
+    :isFree true .
+
+
+### Cottage 3
+:Cottage3 rdf:type :Cottage ;
+    :hasAddress "Birch Hill 7, Cesis" ;
+    :hasImage "https://example.com/images/cottage3.jpg" ;
+    :hasCapacity 8 ;
+    :hasBedrooms 4 ;
+    :hasDistanceToLake "80.3"^^xsd:float ;
+    :hasNearestCity "Cesis" ;
+    :hasDistanceToCity "4000.0"^^xsd:float ;
+    :hasAvailabilityPeriod :Period3_1 .
+
+:Period3_1 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-06-25"^^xsd:date ;
+    :hasEndDate "2025-07-05"^^xsd:date ;
+    :isFree true .
+
+
+### Cottage 4
+:Cottage4 rdf:type :Cottage ;
+    :hasAddress "Hilltop 21, Valmiera" ;
+    :hasImage "https://example.com/images/cottage4.jpg" ;
+    :hasCapacity 2 ;
+    :hasBedrooms 1 ;
+    :hasDistanceToLake "500.0"^^xsd:float ;
+    :hasNearestCity "Valmiera" ;
+    :hasDistanceToCity "1000.0"^^xsd:float ;
+    :hasAvailabilityPeriod :Period4_1 .
+
+:Period4_1 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-07-15"^^xsd:date ;
+    :hasEndDate "2025-07-20"^^xsd:date ;
+    :isFree true .
+
+
+### Cottage 5
+:Cottage5 rdf:type :Cottage ;
+    :hasAddress "Meadow Lane 9, Jurmala" ;
+    :hasImage "https://example.com/images/cottage5.jpg" ;
+    :hasCapacity 5 ;
+    :hasBedrooms 3 ;
+    :hasDistanceToLake "45.7"^^xsd:float ;
+    :hasNearestCity "Jurmala" ;
+    :hasDistanceToCity "2000.0"^^xsd:float ;
+    :hasAvailabilityPeriod :Period5_1 .
+
+:Period5_1 rdf:type :BookingPeriod ;
+    :hasStartDate "2025-07-05"^^xsd:date ;
+    :hasEndDate "2025-07-12"^^xsd:date ;
+    :isFree false .

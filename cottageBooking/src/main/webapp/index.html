@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cottage Booking Service</title>
+  <script>
+    async function searchCottages(event) {
+      event.preventDefault();
+
+      const params = new URLSearchParams(new FormData(document.getElementById('bookingForm')));
+      const response = await fetch('booking?' + params.toString());
+      const data = await response.json();
+
+      const resultDiv = document.getElementById('results');
+      resultDiv.innerHTML = '';
+
+      if (!data.bookings || data.bookings.length === 0) {
+        resultDiv.innerHTML = '<p style="color:red;">No matching cottages found.</p>';
+        return;
+      }
+
+      data.bookings.forEach(b => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <h3>Booking #${b.bookingNumber}</h3>
+          <strong>image URL:</strong> ${b.image}<br>
+          <strong>Booker:</strong> ${b.bookerName}<br>
+          <strong>Address:</strong> ${b.address}<br>
+          <strong>City:</strong> ${b.nearestCity} (${b.distanceToCity} m)<br>
+          <strong>Capacity:</strong> ${b.capacity}<br>
+          <strong>Bedrooms:</strong> ${b.bedrooms}<br>
+          <strong>Distance to Lake:</strong> ${b.distanceToLake} m<br>
+          <strong>Booking Period:</strong> ${b.bookingStart} → ${b.bookingEnd}
+          <hr>
+        `;
+        resultDiv.appendChild(div);
+      });
+    }
+  </script>
+</head>
+<body>
+  <h2>Cottage Booking Search</h2>
+  <form id="bookingForm" onsubmit="searchCottages(event)">
+    <label>Booker Name:</label><br>
+    <input type="text" name="bookerName" required><br><br>
+
+    <label>Required Number of Places (People):</label><br>
+    <input type="number" name="numPeople" min="1" required><br><br>
+
+    <label>Required Number of Bedrooms:</label><br>
+    <input type="number" name="numBedrooms" min="1" required><br><br>
+
+    <label>Max Distance from Lake (m):</label><br>
+    <input type="number" name="maxLakeDist" step="0.1"><br><br>
+
+    <label>Nearest City:</label><br>
+    <input type="text" name="city"><br><br>
+
+    <label>Max Distance to City (m):</label><br>
+    <input type="number" name="maxCityDist" step="0.1"><br><br>
+
+    <label>Required Number of Days:</label><br>
+    <input type="number" name="numDays" min="1" required><br><br>
+
+    <label>Starting Day (dd.mm.yyyy):</label><br>
+    <input type="text" name="startDate" placeholder="01.07.2025" required><br><br>
+
+    <label>Max Possible Shift (+/- n days):</label><br>
+    <input type="number" name="shiftDays" min="0" value="0"><br><br>
+
+    <input type="submit" value="Search">
+  </form>
+
+  <hr>
+  <div id="results"></div>
+</body>
+</html>

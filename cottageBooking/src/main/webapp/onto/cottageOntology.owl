@@ -1,0 +1,76 @@
+@prefix : <http://localhost:8080/cottageBooking/onto/cottageOntology.owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+#################################################################
+# Ontology Header
+#################################################################
+
+<http://localhost:8080/cottageBooking/onto/cottageOntology.owl>
+    rdf:type owl:Ontology ;
+    rdfs:comment "Ontology for Cottage Booking Service" .
+
+#################################################################
+# Classes
+#################################################################
+
+:Cottage rdf:type owl:Class ;
+    rdfs:label "Cottage" .
+
+:BookingPeriod rdf:type owl:Class ;
+    rdfs:label "Booking Period" .
+
+#################################################################
+# Object Properties
+#################################################################
+
+:hasAvailabilityPeriod rdf:type owl:ObjectProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range :BookingPeriod ;
+    rdfs:label "has availability period" .
+
+#################################################################
+# Data Properties
+#################################################################
+
+:hasAddress rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:string .
+
+:hasImage rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:anyURI .
+
+:hasCapacity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:integer .
+
+:hasBedrooms rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:integer .
+
+:hasDistanceToLake rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:float .
+
+:hasNearestCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:string .
+
+:hasDistanceToCity rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Cottage ;
+    rdfs:range xsd:float .
+
+:hasStartDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :BookingPeriod ;
+    rdfs:range xsd:date .
+
+:hasEndDate rdf:type owl:DatatypeProperty ;
+    rdfs:domain :BookingPeriod ;
+    rdfs:range xsd:date .
+
+:isFree rdf:type owl:DatatypeProperty ;
+    rdfs:domain :BookingPeriod ;
+    rdfs:range xsd:boolean .
