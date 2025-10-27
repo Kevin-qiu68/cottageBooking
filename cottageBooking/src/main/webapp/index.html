@@ -3,6 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <title>Cottage Booking Service</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-top: 30px;
+    }
+
+    form {
+      background: #fff;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 25px 35px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      box-sizing: border-box;
+      transition: border 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      border-color: #3498db;
+      outline: none;
+    }
+
+    input[type="submit"] {
+      display: block;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 20px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2c80b4;
+    }
+
+    #results {
+      max-width: 850px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .card img {
+      width: 180px;
+      height: 120px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+
+    .card-content {
+      flex: 1;
+    }
+
+    .card-content h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #b00;
+      font-size: 18px;
+    }
+  </style>
+
   <script>
     async function searchCottages(event) {
       event.preventDefault();
@@ -15,63 +122,64 @@
       resultDiv.innerHTML = '';
 
       if (!data.bookings || data.bookings.length === 0) {
-        resultDiv.innerHTML = '<p style="color:red;">No matching cottages found.</p>';
+        resultDiv.innerHTML = '<p class="no-results">No matching cottages found.</p>';
         return;
       }
 
       data.bookings.forEach(b => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-          <h3>Booking #${b.bookingNumber}</h3>
-          <strong>image URL:</strong> ${b.image}<br>
-          <strong>Booker:</strong> ${b.bookerName}<br>
-          <strong>Address:</strong> ${b.address}<br>
-          <strong>City:</strong> ${b.nearestCity} (${b.distanceToCity} m)<br>
-          <strong>Capacity:</strong> ${b.capacity}<br>
-          <strong>Bedrooms:</strong> ${b.bedrooms}<br>
-          <strong>Distance to Lake:</strong> ${b.distanceToLake} m<br>
-          <strong>Booking Period:</strong> ${b.bookingStart} → ${b.bookingEnd}
-          <hr>
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-content">
+            <h3>Booking #${b.bookingNumber}</h3>
+            <p><strong>Image URL:</strong> ${b.image}</p>
+            <p><strong>Booker:</strong> ${b.bookerName}</p>
+            <p><strong>Address:</strong> ${b.address}</p>
+            <p><strong>City:</strong> ${b.nearestCity} (${b.distanceToCity} m)</p>
+            <p><strong>Capacity:</strong> ${b.capacity} &nbsp; | &nbsp; <strong>Bedrooms:</strong> ${b.bedrooms}</p>
+            <p><strong>Distance to Lake:</strong> ${b.distanceToLake} m</p>
+            <p><strong>Booking Period:</strong> ${b.bookingStart} → ${b.bookingEnd}</p>
+          </div>
         `;
-        resultDiv.appendChild(div);
+        resultDiv.appendChild(card);
       });
     }
   </script>
 </head>
 <body>
   <h2>Cottage Booking Search</h2>
+
   <form id="bookingForm" onsubmit="searchCottages(event)">
-    <label>Booker Name:</label><br>
-    <input type="text" name="bookerName" required><br><br>
+    <label>Booker Name:</label>
+    <input type="text" name="bookerName" required>
 
-    <label>Required Number of Places (People):</label><br>
-    <input type="number" name="numPeople" min="1" required><br><br>
+    <label>Required Number of Places (People):</label>
+    <input type="number" name="numPeople" min="1" required>
 
-    <label>Required Number of Bedrooms:</label><br>
-    <input type="number" name="numBedrooms" min="1" required><br><br>
+    <label>Required Number of Bedrooms:</label>
+    <input type="number" name="numBedrooms" min="1" required>
 
-    <label>Max Distance from Lake (m):</label><br>
-    <input type="number" name="maxLakeDist" step="0.1"><br><br>
+    <label>Max Distance from Lake (m):</label>
+    <input type="number" name="maxLakeDist" step="0.1">
 
-    <label>Nearest City:</label><br>
-    <input type="text" name="city"><br><br>
+    <label>Nearest City:</label>
+    <input type="text" name="city">
 
-    <label>Max Distance to City (m):</label><br>
-    <input type="number" name="maxCityDist" step="0.1"><br><br>
+    <label>Max Distance to City (m):</label>
+    <input type="number" name="maxCityDist" step="0.1">
 
-    <label>Required Number of Days:</label><br>
-    <input type="number" name="numDays" min="1" required><br><br>
+    <label>Required Number of Days:</label>
+    <input type="number" name="numDays" min="1" required>
 
-    <label>Starting Day (dd.mm.yyyy):</label><br>
-    <input type="text" name="startDate" placeholder="01.07.2025" required><br><br>
+    <label>Starting Day (dd.mm.yyyy):</label>
+    <input type="text" name="startDate" placeholder="01.07.2025" required>
 
-    <label>Max Possible Shift (+/- n days):</label><br>
-    <input type="number" name="shiftDays" min="0" value="0"><br><br>
+    <label>Max Possible Shift (+/- n days):</label>
+    <input type="number" name="shiftDays" min="0" value="0">
 
     <input type="submit" value="Search">
   </form>
 
-  <hr>
   <div id="results"></div>
 </body>
 </html>

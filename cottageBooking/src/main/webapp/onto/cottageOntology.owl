@@ -4,37 +4,29 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
-#################################################################
-# Ontology Header
-#################################################################
 
+# Ontology Header
 <http://localhost:8080/cottageBooking/onto/cottageOntology.owl>
     rdf:type owl:Ontology ;
     rdfs:comment "Ontology for Cottage Booking Service" .
 
-#################################################################
-# Classes
-#################################################################
 
+# Classes
 :Cottage rdf:type owl:Class ;
     rdfs:label "Cottage" .
 
 :BookingPeriod rdf:type owl:Class ;
     rdfs:label "Booking Period" .
 
-#################################################################
-# Object Properties
-#################################################################
 
+# Object Properties
 :hasAvailabilityPeriod rdf:type owl:ObjectProperty ;
     rdfs:domain :Cottage ;
     rdfs:range :BookingPeriod ;
     rdfs:label "has availability period" .
 
-#################################################################
-# Data Properties
-#################################################################
 
+# Data Properties
 :hasAddress rdf:type owl:DatatypeProperty ;
     rdfs:domain :Cottage ;
     rdfs:range xsd:string .
